@@ -1,0 +1,36 @@
+Aim
+To write a simple Java program that uses Kadane's algorithm to find the maximum possible profit from a given array of daily profit and loss values. Essentially, this will identify the subarray (a continuous sequence of days) that results in the highest profit.
+program:
+public class MaxProfitKadane {
+
+    // Function to apply Kadane's Algorithm
+    public static int maxProfit(int[] dailyChanges) {
+        int maxSoFar = dailyChanges[0];
+        int maxEndingHere = dailyChanges[0];
+
+        for (int i = 1; i < dailyChanges.length; i++) {
+            maxEndingHere = Math.max(dailyChanges[i], maxEndingHere + dailyChanges[i]);
+            maxSoFar = Math.max(maxSoFar, maxEndingHere);
+        }
+        return maxSoFar;
+    }
+
+    public static void main(String[] args) {
+        // Example daily profit and loss values
+        int[] dailyChanges = { -2, 3, -1, 2, -1, 2, -3, 4 };
+
+        System.out.println("Daily profit/loss values:");
+        for (int val : dailyChanges) {
+            System.out.print(val + " ");
+        }
+        System.out.println();
+
+        int maxProfit = maxProfit(dailyChanges);
+        System.out.println("Maximum possible profit: " + maxProfit);
+    }
+}
+
+output:
+Daily profit/loss values:
+-2 3 -1 2 -1 2 -3 4 
+Maximum possible profit: 6
