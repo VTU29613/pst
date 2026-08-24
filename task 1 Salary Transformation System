@@ -1,0 +1,55 @@
+Aim
+
+To write a Java program to increase each employee’s salary by 10% using a functional transformation technique and print the updated salaries.
+program:
+Java pr1 
+import java.util.Scanner;
+
+public class SalaryTransformation {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of employees: ");
+        int n = sc.nextInt();
+
+        double[] salary = new double[n];
+
+        System.out.println("Enter salaries:");
+
+      
+        for (int i = 0; i < n; i++) {
+            salary[i] = sc.nextDouble();
+        }
+
+      
+        for (int i = 0; i < n; i++) {
+            salary[i] = salary[i] + (salary[i] * 0.10);
+        }
+
+        
+        System.out.println("Updated salaries:");
+
+        for (int i = 0; i < n; i++) {
+            System.out.println(salary[i]);
+        }
+
+        sc.close();
+    }
+}
+output:
+Enter number of employees: 5
+Enter salaries:
+1000
+2000
+3000
+4000
+5000
+Updated salaries:
+1100.0
+2200.0
+3300.0
+4400.0
+5500.0
+
+=== Code Execution Successful ===
