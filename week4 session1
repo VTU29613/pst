@@ -1,0 +1,54 @@
+program:
+import java.util.*;
+
+class Solution {
+
+    public static String[] sortPeople(String[] names, int[] heights) {
+
+        int n = names.length;
+
+        Integer[] index = new Integer[n];
+
+        for (int i = 0; i < n; i++) {
+            index[i] = i;
+        }
+
+        Arrays.sort(index, (a, b) -> Integer.compare(heights[b], heights[a]));
+
+        String[] result = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            result[i] = names[index[i]];
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+
+        String[] names = {"Mary", "John", "Emma"};
+        int[] heights = {180, 165, 170};
+
+        String[] result = sortPeople(names, heights);
+
+        System.out.println("Input:");
+        System.out.println("Names: " + Arrays.toString(names));
+        System.out.println("Heights: " + Arrays.toString(heights));
+
+        System.out.println("Output:");
+        System.out.println(Arrays.toString(result));
+    }
+}
+
+Output
+Input:
+Names: [Mary, John, Emma]
+Heights: [180, 165, 170]
+Output:
+[Mary, Emma, John]
+
+
+
+Therefore the output is:
+
+[Mary, Emma, John]
