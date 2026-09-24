@@ -1,0 +1,121 @@
+java program
+import java.util.*;
+
+class UndergroundSystem {
+
+    HashMap<Integer, CheckInInfo> checkInMap;
+
+    
+    HashMap<String, RouteInfo> routeMap;
+
+
+    public UndergroundSystem() {
+        checkInMap = new HashMap<>();
+        routeMap = new HashMap<>();
+    }
+
+    
+    class CheckInInfo {
+        String station;
+        int time;
+
+        CheckInInfo(String station, int time) {
+            this.station = station;
+            this.time = time;
+        }
+    }
+
+    class RouteInfo {
+        int totalTime;
+        int count;
+
+        RouteInfo(int totalTime, int count) {
+            this.totalTime = totalTime;
+            this.count = count;
+        }
+    }
+
+   
+    public void checkIn(int id, String stationName, int t) {
+        checkInMap.put(id, new CheckInInfo(stationName, t));
+    }
+
+    public void checkOut(int id, String stationName, int t) {
+
+        CheckInInfo checkIn = checkInMap.get(id);
+
+        String route = checkIn.station + "->" + stationName;
+
+        int travelTime = t - checkIn.time;
+
+        if (routeMap.containsKey(route)) {
+
+            RouteInfo info = routeMap.get(route);
+
+            info.totalTime += travelTime;
+            info.count++;
+
+        } else {
+
+            routeMap.put(route, new RouteInfo(travelTime, 1));
+        }
+
+        
+        checkInMap.remove(id);
+    }
+
+    
+    public double getAverageTime(String startStation, String endStation) {
+
+        String route = startStation + "->" + endStation;
+
+        RouteInfo info = routeMap.get(route);
+
+        return (double) info.totalTime / info.count;
+    }
+
+    public static void main(String[] args) {
+
+        UndergroundSystem undergroundSystem = new UndergroundSystem();
+
+        undergroundSystem.checkIn(45, "Leyton", 3);
+        undergroundSystem.checkIn(32, "Paradise", 8);
+        undergroundSystem.checkIn(27, "Leyton", 10);
+
+        undergroundSystem.checkOut(45, "Waterloo", 15);
+        undergroundSystem.checkOut(27, "Waterloo", 20);
+        undergroundSystem.checkOut(32, "Cambridge", 22);
+
+        System.out.println(
+            undergroundSystem.getAverageTime("Paradise", "Cambridge")
+        );
+
+        System.out.println(
+            undergroundSystem.getAverageTime("Leyton", "Waterloo")
+        );
+
+        undergroundSystem.checkIn(10, "Leyton", 24);
+
+        System.out.println(
+            undergroundSystem.getAverageTime("Leyton", "Waterloo")
+        );
+
+        undergroundSystem.checkOut(10, "Waterloo", 38);
+
+        System.out.println(
+            undergroundSystem.getAverageTime("Leyton", "Waterloo")
+        );
+    }
+}
+```
+
+Output
+
+
+14.0
+11.0
+11.0
+12.0
+
+
+
